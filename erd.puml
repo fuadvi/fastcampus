@@ -1,0 +1,54 @@
+@startuml
+
+entity users {
+    id: PK
+    ---
+    email: varchar
+    password: varchar
+    created_at: timestamp
+    updated_at: timestamp
+    created_by longtext
+    updated_by longtext
+}
+
+entity posts {
+    id : PK
+    --
+    user_id: FK
+    post_title: varchar
+    post_content: longtext
+    hashtag: longtext
+    created_at: timestamp
+    updated_at: timestamp
+    created_by longtext
+    updated_by longtext
+}
+
+entity comments {
+    id : PK
+    --
+    post_id: FK
+    comment: longtext
+    created_at: timestamp
+    updated_at: timestamp
+    created_by longtext
+    updated_by longtext
+}
+
+entity user_activities {
+    id : PK
+    --
+    post_id: FK
+    is_liked: boolean
+    created_at: timestamp
+    updated_at: timestamp
+    created_by longtext
+    updated_by longtext
+}
+
+users ||--o{ posts
+posts ||--o{ comments
+posts ||--o{ user_activities
+
+
+@enduml

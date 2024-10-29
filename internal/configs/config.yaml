@@ -1,0 +1,5 @@
+service:
+  port: ":9879"
+  secretJwt: "fastcampus"
+database:
+  dataSourceName: "root:@tcp(localhost:3306)/fastcampus?parseTime=true"
