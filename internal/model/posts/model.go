@@ -23,3 +23,38 @@ type (
 		UpdatedBy    string    `db:"updated_by"`
 	}
 )
+
+type (
+	GetAllPost struct {
+		Data       []Post     `json:"data"`
+		Pagination Pagination `json:"pagination"`
+	}
+
+	Post struct {
+		ID           int64    `json:"id"`
+		UserID       int64    `json:"user_id"`
+		Username     string   `json:"username"`
+		PostTitle    string   `json:"post_title"`
+		PostContent  string   `json:"post_content"`
+		PostHashTags []string `json:"post_hash_tag"`
+		IsLiked      bool     `json:"is_liked"`
+	}
+
+	Pagination struct {
+		Limit  int `json:"limit"`
+		Offset int `json:"offset"`
+	}
+
+	GetPostResponse struct {
+		PostDetail Post      `json:"post_detail"`
+		LikeCount  int       `json:"like_count"`
+		Comments   []Comment `json:"comments"`
+	}
+
+	Comment struct {
+		ID             int64  `json:"id"`
+		UserID         int64  `json:"user_id"`
+		Username       string `json:"username"`
+		CommentContent string `json:"comment_content"`
+	}
+)

@@ -14,3 +14,31 @@ func (r *Repository) CreateComment(ctx context.Context, model posts.CommentModel
 
 	return nil
 }
+
+func (r *Repository) GetCommentByPostID(ctx context.Context, postID int) ([]posts.Comment, error) {
+	query := `SELECT c.id, c.user_id, c.comment_content, u.username  
+			FROM comments c join users u on c.user_id = u.id WHERE post_id = ?`
+
+	rows, err := r.db.QueryContext(ctx, query, postID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	response := make([]posts.Comment, 0)
+	for rows.Next() {
+		var (
+			comment posts.Comment
+		)
+
+		err := rows.Scan(&comment.ID, &comment.UserID, &comment.CommentContent, &comment.Username)
+
+		if err != nil {
+			return nil, err
+		}
+
+		response = append(response, comment)
+	}
+
+	return response, nil
+}
